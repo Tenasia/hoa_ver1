@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:home_owners_application_version_one/api/login_api.dart';
 import 'package:home_owners_application_version_one/api/database_helper.dart';
 import 'package:home_owners_application_version_one/api/google_login_api.dart';
 import 'package:home_owners_application_version_one/design_components/bezier_curve.dart';
 import 'package:home_owners_application_version_one/main_views/dashboard_page.dart';
+import 'package:home_owners_application_version_one/models/google_users_cubit.dart';
+import 'package:home_owners_application_version_one/models/google_users_model.dart';
 
 import '../components/common_textform.dart';
 import '../constants.dart';
@@ -19,6 +22,46 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  GoogleSignInAccount? _googleUser;
+
+  // Future<void> _signInGoogle() async {
+  //   try {
+  //     GoogleSignIn googleSignIn = GoogleSignIn(
+  //       scopes: [
+  //         ///TODO: put scopes app will use
+  //       ],
+  //     );
+  //     /// if previously signed in, it will signin silently
+  //     /// if not, the signin dialog/login page will pop up
+  //     _googleUser =
+  //         await googleSignIn.signInSilently() ?? await googleSignIn.signIn();
+  //
+  //     print(_googleUser?.displayName);
+  //     print(_googleUser?.email);
+  //
+  //     if (_googleUser != null) {
+  //       // Successful sign-in
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => DashboardWidget(), // Replace NextPage with your desired destination page
+  //         ),
+  //       );
+  //     } else {
+  //       // Sign-in failed
+  //       // Handle sign-in failure if needed
+  //     }
+  //
+  //
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
+
+  ///sign out from google
+
+
 
   bool rememberMe = false;
   bool isLoadingWithEmail = false;
@@ -232,6 +275,8 @@ class _LoginPageState extends State<LoginPage> {
                                     child: ElevatedButton(
                                       onPressed: () async {
 
+                                        googleSignOut();
+
                                         setState(() {
                                           isLoadingWithEmail = true;
                                         });
@@ -373,9 +418,37 @@ class _LoginPageState extends State<LoginPage> {
                                     width: 300,
                                     height: 50,
                                     child: ElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async {
 
-                                        // signInWithGoogle();
+                                        setState(() {
+                                          isLoadingWithGoogle = true;
+                                        });
+
+                                        GoogleSignInAccount? googleUser = await signInGoogle();
+
+                                        if (googleUser != null) {
+
+                                          GoogleUser user = GoogleUser(
+                                            id: googleUser.id,
+                                            displayName: googleUser.displayName,
+                                            email: googleUser.email,
+                                            photoUrl: googleUser.photoUrl,
+                                          );
+
+                                          // context.read<GoogleUserCubit>().emit(user);
+
+
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => DashboardWidget()));// Call the callback function to perform navigation
+                                        } else {
+                                          // Sign-in failed
+                                          // Handle sign-in failure if needed
+                                        }
+
+                                        setState(() {
+                                          isLoadingWithGoogle = false;
+                                        });
 
                                       },
                                       style: ElevatedButton.styleFrom(

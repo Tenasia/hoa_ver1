@@ -5,4 +5,3 @@ import 'package:home_owners_application_version_one/models/users_model.dart';
 class UserCubit extends Cubit<EmailUser>{
   UserCubit(super.initialState);
 }
-

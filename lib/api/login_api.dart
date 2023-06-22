@@ -5,14 +5,13 @@ import 'package:hive/hive.dart';
 import 'package:home_owners_application_version_one/models/users_model.dart';
 
 
-const ipAddress = '192.168.68.113';
+const ipAddress = '192.168.68.112';
 const djangoAddress = '10.0.0.2';
 const baseUrl = "http://$ipAddress:8000/user";
 
   // Authenticates what the user has entered, grab the key that it returned
   // if successful, it returns a token that is then used to authenticate the
   // login
-
   Future<dynamic> loginUserAuth(String email, String password) async{
 
     var url = Uri.parse('$baseUrl/login/');

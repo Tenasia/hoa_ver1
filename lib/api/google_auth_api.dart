@@ -10,14 +10,10 @@ Future<GoogleSignInAccount?> signInGoogle() async {
         ///TODO: put scopes app will use
       ],
     );
-
     /// if previously signed in, it will sign in silently
     /// if not, the sign-in dialog/login page will pop up
     GoogleSignInAccount? googleUser =
         await googleSignIn.signInSilently() ?? await googleSignIn.signIn();
-
-    print(googleUser?.displayName);
-    print(googleUser?.email);
 
     return googleUser;
   } catch (e) {

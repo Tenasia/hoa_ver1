@@ -3,11 +3,7 @@ import 'package:home_owners_application_version_one/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
 import 'package:home_owners_application_version_one/models/users_model.dart';
-
-
-const ipAddress = '192.168.68.112';
-const djangoAddress = '10.0.0.2';
-const baseUrl = "http://$ipAddress:8000/user";
+import 'package:home_owners_application_version_one/constants.dart';
 
   // Authenticates what the user has entered, grab the key that it returned
   // if successful, it returns a token that is then used to authenticate the
@@ -50,7 +46,7 @@ const baseUrl = "http://$ipAddress:8000/user";
 
   // Grabs the user in the database with their information if token matches
   Future<EmailUser?> getUser(String token) async{
-    var url = Uri.parse('$baseUrl/userInformation/');
+    var url = Uri.parse('$baseUrl/information/');
     var response = await http.get(
         url,
         headers: {
@@ -62,7 +58,6 @@ const baseUrl = "http://$ipAddress:8000/user";
       var json = jsonDecode(response.body);
       EmailUser user = EmailUser.fromJson(json);
 
-      print(json);
       user.token = token;
       return user;
     } else{

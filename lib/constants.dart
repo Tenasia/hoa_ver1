@@ -3,9 +3,18 @@ import 'dart:io' show Platform;
 // This acts as like a settings.py in terms of purpose, it's where
 // We set our constant or static variables;
 
+
+const currentIpAddress ='192.168.1.4';
+const djangoAddress = '10.0.0.2';
+
+// URI Address For User Authentications
+const baseUrl = "http://$currentIpAddress:8000/user";
+
+// Global Variables
 const tokenBox = "NOTEPADTAKEN";
 const rememberMeBox = "RememberMe";
 
+// Google Authentication Without Firebase
 const GOOGLE_ISSUER = 'https://accounts.google.com';
 
 const GOOGLE_CLIENT_ID_IOS = '833450757511-nlsjvl786f2i7ocnnbfnmp59nu00vjt1.apps.googleusercontent.com';

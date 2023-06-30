@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 class WaveClipper extends CustomClipper<Path> {
 
-
   @override
   Path getClip(Size size) {
     final path = Path();
@@ -72,6 +71,49 @@ class WaveClipper2 extends CustomClipper<Path> {
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return true;
+  }
+}
+
+class CustomWaveDesign extends StatelessWidget {
+  final List<Color> gradientColors;
+
+  const CustomWaveDesign({
+    Key? key,
+    required this.gradientColors,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        ClipPath(
+          clipper: WaveClipper(),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: gradientColors,
+              ),
+            ),
+            height: 550,
+          ),
+        ),
+        ClipPath(
+          clipper: WaveClipper2(),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: gradientColors,
+              ),
+            ),
+            height: 350,
+          ),
+        ),
+      ],
+    );
   }
 }
 

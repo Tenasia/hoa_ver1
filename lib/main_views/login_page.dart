@@ -5,9 +5,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:home_owners_application_version_one/api/login_api.dart';
 import 'package:home_owners_application_version_one/api/database_helper.dart';
-import 'package:home_owners_application_version_one/api/google_login_api.dart';
+import 'package:home_owners_application_version_one/api/google_auth_api.dart';
+import 'package:home_owners_application_version_one/design_components/app_title.dart';
 import 'package:home_owners_application_version_one/design_components/bezier_curve.dart';
 import 'package:home_owners_application_version_one/main_views/dashboard_page.dart';
+import 'package:home_owners_application_version_one/main_views/forgot_password_page.dart';
 import 'package:home_owners_application_version_one/models/google_users_cubit.dart';
 import 'package:home_owners_application_version_one/models/google_users_model.dart';
 
@@ -23,50 +25,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  GoogleSignInAccount? _googleUser;
-
-  // Future<void> _signInGoogle() async {
-  //   try {
-  //     GoogleSignIn googleSignIn = GoogleSignIn(
-  //       scopes: [
-  //         ///TODO: put scopes app will use
-  //       ],
-  //     );
-  //     /// if previously signed in, it will signin silently
-  //     /// if not, the signin dialog/login page will pop up
-  //     _googleUser =
-  //         await googleSignIn.signInSilently() ?? await googleSignIn.signIn();
-  //
-  //     print(_googleUser?.displayName);
-  //     print(_googleUser?.email);
-  //
-  //     if (_googleUser != null) {
-  //       // Successful sign-in
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => DashboardWidget(), // Replace NextPage with your desired destination page
-  //         ),
-  //       );
-  //     } else {
-  //       // Sign-in failed
-  //       // Handle sign-in failure if needed
-  //     }
-  //
-  //
-  //   } catch (e) {
-  //     debugPrint(e.toString());
-  //   }
-  // }
-
-  ///sign out from google
-
-
-
   bool rememberMe = false;
   bool isLoadingWithEmail = false;
   bool isLoadingWithGoogle = false;
-
 
   String email = '';
   String password = '';
@@ -131,37 +92,8 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Stack(
             children: [
-              ClipPath(
-                clipper: WaveClipper(),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFFE6E6FA),
-                        Color(0xFF523AA8),
-                      ],
-                    ),
-                  ),
-                  height: 550,
-                ),
-              ),
-              ClipPath(
-                clipper: WaveClipper2(),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFFE6E6FA),
-                        Color(0xFF523AA8),
-                      ],
-                    ),
-                  ),
-                  height: 350,
-                ),
+              const CustomWaveDesign(
+                gradientColors: [Color(0xFFE6E6FA), Color(0xFF523AA8)],
               ),
               Center(
                 child: SizedBox(
@@ -169,39 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 300),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color(0xFF523AA8), // Start color
-                                  Color(0xFF523AA8), // End color
-                                ],
-                              ),
-                            ),
-                            child: const CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              child: Icon(
-                                Icons.house_outlined,
-                                color: Color(0xFFE6E6FA),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16.0),
-                          const Text(
-                            'Home Owner\'s Application',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
-                        ],
-                      ),
+
+                      const CustomTitleRow(title: "Home Owner's Application"),
+
                       const SizedBox(height: 25.0),
                       Column(
                         children: [
@@ -227,7 +129,6 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-
                           const SizedBox(height: 18.0),
                           Row(
                             mainAxisAlignment:
@@ -254,6 +155,13 @@ class _LoginPageState extends State<LoginPage> {
                               TextButton(
                                 onPressed: () {
 
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ForgotPasswordPage()),
+                                  );
+
                                 },
                                 child: const Text(
                                   'Forgot Password?',
@@ -269,13 +177,12 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Column(
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     width: 300,
                                     height: 50,
                                     child: ElevatedButton(
                                       onPressed: () async {
 
-                                        googleSignOut();
 
                                         setState(() {
                                           isLoadingWithEmail = true;
@@ -361,10 +268,6 @@ class _LoginPageState extends State<LoginPage> {
 
                                           return;
                                         }
-
-
-
-
                                       },
                                       style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
@@ -414,7 +317,7 @@ class _LoginPageState extends State<LoginPage> {
                                           fontSize: 18,
                                           color: Colors.black)),
                                   const SizedBox(height: 8.0),
-                                  Container(
+                                  SizedBox(
                                     width: 300,
                                     height: 50,
                                     child: ElevatedButton(

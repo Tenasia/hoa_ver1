@@ -226,38 +226,32 @@ class VerticalCustomWaveDesign extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Transform.rotate(
-          angle: -90 * 3.1415927 / 180, // Rotate the widget by -90 degrees
-          child: ClipPath(
-            clipper: VerticalWaveClipper(),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: gradientColors,
-                ),
+        ClipPath(
+          clipper: VerticalWaveClipper(),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: gradientColors,
               ),
-              height: firstWaveWidth, // Swap width and height
-              width: firstWaveHeight, // Swap width and height
             ),
+            height: firstWaveWidth, // Swap width and height
+            width: firstWaveHeight, // Swap width and height
           ),
         ),
-        Transform.rotate(
-          angle: -90 * 3.1415927 / 180, // Rotate the widget by -90 degrees
-          child: ClipPath(
-            clipper: VerticalWaveClipper2(),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: gradientColors,
-                ),
+        ClipPath(
+          clipper: VerticalWaveClipper2(),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: gradientColors,
               ),
-              height: secondWaveWidth, // Swap width and height
-              width: secondWaveHeight, // Swap width and height
             ),
+            height: secondWaveWidth, // Swap width and height
+            width: secondWaveHeight, // Swap width and height
           ),
         ),
       ],

@@ -476,24 +476,21 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
         desktopBody: Padding(
-          padding: const EdgeInsets.only(left:16.0, right: 16.0),
+          padding: const EdgeInsets.only(left:0.0, right: 16.0),
           child: Row(
             children: [
-              Expanded(
-                child: Container(
-                  child: Text('Hello World!'),
+              const Expanded(
+                child: VerticalCustomWaveDesign(
+                  gradientColors: [Color(0xFFE6E6FA), Color(0xFF523AA8)],
+                  firstWaveHeight: 500,
+                  firstWaveWidth: double.infinity,
+                  secondWaveHeight: 350,
+                  secondWaveWidth: double.infinity,
                 ),
               ),
               Expanded(
-                child: Column(
+                child: Stack(
                   children: [
-                    // const VerticalCustomWaveDesign(
-                    //   gradientColors: [Color(0xFFE6E6FA), Color(0xFF523AA8)],
-                    //   firstWaveHeight: 500,
-                    //   firstWaveWidth: double.infinity,
-                    //   secondWaveHeight: 350,
-                    //   secondWaveWidth: double.infinity,
-                    // ),
                     Center(
                       child: SizedBox(
                         width: 300,

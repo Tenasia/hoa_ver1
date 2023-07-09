@@ -43,8 +43,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
             CommonElevatedButton(
                 buttonText: 'Log Out',
-                buttonColor: Color(
-                    0xFF523AA8),
+                buttonColor: const Color(0xFF523AA8),
                 onPressed: (){
                   googleSignOut();
                   logoutUser();

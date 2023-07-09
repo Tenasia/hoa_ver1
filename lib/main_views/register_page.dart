@@ -54,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Stack(
                     children: [
                       ClipPath(
-                        clipper: WaveClipper(),
+                        clipper: HorizontalWaveClipper(),
                         child: Container(
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
@@ -70,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       ClipPath(
-                        clipper: WaveClipper2(),
+                        clipper: HorizontalWaveClipper2(),
                         child: Container(
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(

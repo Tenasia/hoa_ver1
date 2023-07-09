@@ -4,7 +4,7 @@ import 'dart:io' show Platform;
 // We set our constant or static variables;
 
 
-const currentIpAddress ='192.168.1.4';
+const currentIpAddress ='192.168.1.3';
 const djangoAddress = '10.0.0.2';
 
 // URI Address For User Authentications

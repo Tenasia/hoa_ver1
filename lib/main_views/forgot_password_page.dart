@@ -13,7 +13,9 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   String email = '';
+
   bool isLoadingWithEmail = false;
+  bool emailSentSuccessfully = false;
 
   TextEditingController emailController = TextEditingController();
 
@@ -39,10 +41,60 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         children: [
           Stack(
             children: [
-              const CustomWaveDesign(
+              const HorizontalCustomWaveDesign(
                 gradientColors: [Color(0xFFE6E6FA), Color(0xFF523AA8)],
+                firstWaveHeight: 550,
+                firstWaveWidth: double.infinity,
+                secondWaveHeight: 350,
+                secondWaveWidth: double.infinity,
               ),
-              Center(
+
+              if(emailSentSuccessfully)
+                Center(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 300),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF523AA8), // Rounded background color
+                          borderRadius: BorderRadius.circular(10), // Rounded corners
+                        ),
+                        padding: const EdgeInsets.all(20), // Padding around the container
+                        child: const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.white,
+                              size: 80,
+                            ),
+                            SizedBox(height: 10), // Add some spacing between the checkmark and the text
+                            Text(
+                              'Email Confirmation Sent!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 25),
+
+                      CommonElevatedButton(
+                        buttonText: 'Back To Login Page',
+                        buttonColor: const Color(0xFF523AA8),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              if(!emailSentSuccessfully)
+                Center(
                 child: SizedBox(
                   width: 300,
                   child: Column(
@@ -82,40 +134,47 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                     width: 300,
                                     height: 50,
                                     child: ElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async {
+
 
                                         setState(() {
                                           isLoadingWithEmail = true;
                                         });
 
-                                        var result = sendEmailConfirmation(emailController.text);
+                                        try {
 
-                                        if (result.runtimeType == String){
+                                          var result = await sendEmailConfirmation(emailController.text);
 
+
+                                          if (result == "Password reset e-mail has been sent."){
+
+                                            setState(() {
+                                              emailSentSuccessfully = true;
+                                            });
+                                          } else if (result.runtimeType == String){
+
+                                            if (!mounted) return; // Check if the widget is still mounted
+
+                                            showDialog(
+                                              context: context,
+                                              builder: (builder){
+                                                return CommonInfoLogDisplay(text: Text("$result"));
+                                              },
+                                            );
+                                          }
+
+                                        } catch (e){
                                           showDialog(
                                             context: context,
                                             builder: (builder){
-                                              return Center(
-                                                child: SingleChildScrollView(
-                                                  child: Dialog(
-                                                    child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.all(8.0),
-                                                          child: Container(
-                                                            decoration: const BoxDecoration(),
-                                                            child: Center(child: Text('No User Found')),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
+                                              return CommonInfoLogDisplay(text: Text("$e"));
                                             },
                                           );
 
+                                        } finally{
+                                          setState(() {
+                                            isLoadingWithEmail = false;
+                                          });
                                         }
 
                                       },
@@ -152,7 +211,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                           const Expanded(
                                               flex: 3,
                                               child: Text(
-                                                  'Send ',
+                                                  'Send Email Confirmation',
                                                   style: TextStyle(
                                                       fontSize: 18,
                                                       color: Colors
@@ -164,7 +223,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 ],
                               ),
 
-                              SizedBox(height: 16.0),
+                              const SizedBox(height: 16.0),
 
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

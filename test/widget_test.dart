@@ -13,7 +13,7 @@ import 'package:home_owners_application_version_one/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const HomeOwnerApp());
+    await tester.pumpWidget(HomeOwnerApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

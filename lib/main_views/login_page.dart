@@ -163,26 +163,31 @@ class _LoginPageState extends State<LoginPage> {
                                 TextButton(
                                   onPressed: () {
 
-                                    Navigator.push(
+                                    Navigator.pushNamed(
                                       context,
-                                      PageRouteBuilder(
-                                        pageBuilder: (context, animation, secondaryAnimation) => ForgotPasswordPage(),
-                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                          var begin = const Offset(-1.0, 0.0);
-                                          var end = Offset.zero;
-                                          var tween = Tween(begin: begin, end: end);
-                                          var curvedAnimation = CurvedAnimation(
-                                            parent: animation,
-                                            curve: Curves.easeInOut,
-                                          );
-
-                                          return SlideTransition(
-                                            position: tween.animate(curvedAnimation),
-                                            child: child,
-                                          );
-                                        },
-                                      ),
+                                      '/auth/password/reset/',
                                     );
+
+                                    // Navigator.push(
+                                    //   context,
+                                    //   PageRouteBuilder(
+                                    //     pageBuilder: (context, animation, secondaryAnimation) => ForgotPasswordPage(),
+                                    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                    //       var begin = const Offset(-1.0, 0.0);
+                                    //       var end = Offset.zero;
+                                    //       var tween = Tween(begin: begin, end: end);
+                                    //       var curvedAnimation = CurvedAnimation(
+                                    //         parent: animation,
+                                    //         curve: Curves.easeInOut,
+                                    //       );
+                                    //
+                                    //       return SlideTransition(
+                                    //         position: tween.animate(curvedAnimation),
+                                    //         child: child,
+                                    //       );
+                                    //     },
+                                    //   ),
+                                    // );
 
 
                                   },
@@ -283,7 +288,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        DashboardWidget()),
+                                                        DashboardPage()),
                                               );
                                             }
 
@@ -370,7 +375,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                             Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => DashboardWidget()));// Call the callback function to perform navigation
+                                                MaterialPageRoute(builder: (context) => DashboardPage()));// Call the callback function to perform navigation
                                           } else {
                                             // Sign-in failed
                                             // Handle sign-in failure if needed
@@ -482,7 +487,7 @@ class _LoginPageState extends State<LoginPage> {
               const Expanded(
                 child: VerticalCustomWaveDesign(
                   gradientColors: [Color(0xFFE6E6FA), Color(0xFF523AA8)],
-                  firstWaveHeight: 500,
+                  firstWaveHeight: 350,
                   firstWaveWidth: double.infinity,
                   secondWaveHeight: 350,
                   secondWaveWidth: double.infinity,
@@ -501,6 +506,7 @@ class _LoginPageState extends State<LoginPage> {
                             const CustomTitleRow(title: "Home Owner's Application"),
 
                             const SizedBox(height: 25.0),
+
 
                             Column(
                               children: [
@@ -604,7 +610,6 @@ class _LoginPageState extends State<LoginPage> {
 
                                                 var authenticationResult = await loginUserAuth(emailController.text, passwordController.text);
 
-                                                print(authenticationResult);
                                                 // if the authenticationResult in an error of some sort, it returns an
                                                 // error in a form of a String
                                                 if (authenticationResult.runtimeType == String){
@@ -672,7 +677,7 @@ class _LoginPageState extends State<LoginPage> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            DashboardWidget()),
+                                                            DashboardPage()),
                                                   );
                                                 }
 
@@ -759,7 +764,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                                 Navigator.push(
                                                     context,
-                                                    MaterialPageRoute(builder: (context) => DashboardWidget()));// Call the callback function to perform navigation
+                                                    MaterialPageRoute(builder: (context) => DashboardPage()));// Call the callback function to perform navigation
                                               } else {
                                                 // Sign-in failed
                                                 // Handle sign-in failure if needed

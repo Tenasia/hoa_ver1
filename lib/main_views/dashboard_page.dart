@@ -8,12 +8,12 @@ import '../constants.dart';
 import '../models/models.dart';
 import '../api/logout_api.dart';
 
-class DashboardWidget extends StatefulWidget {
+class DashboardPage extends StatefulWidget {
   @override
-  _DashboardWidgetState createState() => _DashboardWidgetState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardWidgetState extends State<DashboardWidget> {
+class _DashboardPageState extends State<DashboardPage> {
 
 
   @override

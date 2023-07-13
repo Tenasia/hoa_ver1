@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:home_owners_application_version_one/main_views/login_page.dart';
 import 'package:home_owners_application_version_one/models/users_cubit.dart';
-import 'models/users_model.dart';
+import 'package:home_owners_application_version_one/models/users_model.dart';
+import 'routes.dart';
 
 void main() async {
   // this is the initialization part of the app
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  runApp(const HomeOwnerApp());
+  runApp(HomeOwnerApp());
 }
 
-// App Name
 class HomeOwnerApp extends StatelessWidget {
-
-  const HomeOwnerApp({super.key});
+  HomeOwnerApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context){
+      create: (context) {
         return UserCubit(EmailUser());
       },
       child: MaterialApp(
@@ -29,9 +27,9 @@ class HomeOwnerApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: 'Poppins',
         ),
-        home: LoginPage()
+        initialRoute: '/',
+        onGenerateRoute: generateRoute,
       ),
     );
   }
-
 }

@@ -8,7 +8,6 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
   switch (settings.name) {
 
     // Authentication
-
     case '/':
       return MaterialPageRoute(builder: (BuildContext context) => LoginPage());
     case '/auth/register/':
@@ -43,7 +42,7 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
 
     // Body
 
-    case '/dashboard':
+    case '/dashboard/':
       return PageRouteBuilder(
         pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
           return DashboardPage();

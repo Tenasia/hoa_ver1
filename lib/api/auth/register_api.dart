@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:home_owners_application_version_one/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
-import 'package:home_owners_application_version_one/models/users_model.dart';
+import 'package:home_owners_application_version_one/models/model/users_model.dart';
 
   Future<dynamic> registerUserAuth(
       String firstName,

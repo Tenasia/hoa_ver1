@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:home_owners_application_version_one/api/forgot_password_api.dart';
+import 'package:home_owners_application_version_one/api/auth/forgot_password_api.dart';
 import '../components/common_components.dart';
 import '../design_components/design_components.dart';
 import 'package:home_owners_application_version_one/main_views/login_page.dart';

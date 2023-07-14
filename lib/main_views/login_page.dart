@@ -3,22 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:home_owners_application_version_one/api/login_api.dart';
+import 'package:home_owners_application_version_one/api/auth/login_api.dart';
 import 'package:home_owners_application_version_one/api/database_helper.dart';
-import 'package:home_owners_application_version_one/api/google_auth_api.dart';
+import 'package:home_owners_application_version_one/api/auth/google_auth_api.dart';
 import 'package:home_owners_application_version_one/design_components/app_title.dart';
 import 'package:home_owners_application_version_one/design_components/bezier_curve.dart';
 import 'package:home_owners_application_version_one/main_views/dashboard_page.dart';
 import 'package:home_owners_application_version_one/main_views/forgot_password_page.dart';
-import 'package:home_owners_application_version_one/models/google_users_cubit.dart';
-import 'package:home_owners_application_version_one/models/google_users_model.dart';
+import 'package:home_owners_application_version_one/models/cubit/google_users_cubit.dart';
+import 'package:home_owners_application_version_one/models/model/google_users_model.dart';
 import 'package:home_owners_application_version_one/responsive/responsive_layout.dart';
 import 'package:home_owners_application_version_one/responsive/desktop_body.dart';
 import 'package:home_owners_application_version_one/responsive/mobile_body.dart';
 import '../components/common_textform.dart';
 import '../constants.dart';
-import '../models/users_cubit.dart';
-import '../models/users_model.dart';
+import '../models/cubit/users_cubit.dart';
+import '../models/model/users_model.dart';
 import '../main_views/register_page.dart';
 class LoginPage extends StatefulWidget {
   @override
@@ -284,11 +284,10 @@ class _LoginPageState extends State<LoginPage> {
 
                                               if (!mounted) return;
 
-                                              Navigator.push(
+
+                                              Navigator.pushNamed(
                                                 context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DashboardPage()),
+                                                '/dashboard/',
                                               );
                                             }
 
@@ -373,9 +372,10 @@ class _LoginPageState extends State<LoginPage> {
                                             // context.read<GoogleUserCubit>().emit(user);
                                             if (!mounted) return;
 
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => DashboardPage()));// Call the callback function to perform navigation
+                                            Navigator.pushNamed(
+                                              context,
+                                              '/dashboard/',
+                                            );
                                           } else {
                                             // Sign-in failed
                                             // Handle sign-in failure if needed
@@ -446,12 +446,9 @@ class _LoginPageState extends State<LoginPage> {
                                     TextButton(
                                       onPressed: (){
 
-                                        Navigator.push(
+                                        Navigator.pushNamed(
                                           context,
-                                          PageRouteBuilder(
-                                            transitionDuration: Duration.zero, // Set the transition duration to zero
-                                            pageBuilder: (context, animation, secondaryAnimation) => RegisterPage(),
-                                          ),
+                                          '/auth/register/',
                                         );
 
 
@@ -558,25 +555,9 @@ class _LoginPageState extends State<LoginPage> {
                                     TextButton(
                                       onPressed: () {
 
-                                        Navigator.push(
+                                        Navigator.pushNamed(
                                           context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation, secondaryAnimation) => ForgotPasswordPage(),
-                                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                              var begin = const Offset(-1.0, 0.0);
-                                              var end = Offset.zero;
-                                              var tween = Tween(begin: begin, end: end);
-                                              var curvedAnimation = CurvedAnimation(
-                                                parent: animation,
-                                                curve: Curves.easeInOut,
-                                              );
-
-                                              return SlideTransition(
-                                                position: tween.animate(curvedAnimation),
-                                                child: child,
-                                              );
-                                            },
-                                          ),
+                                          '/auth/password/reset/',
                                         );
 
 
@@ -673,11 +654,9 @@ class _LoginPageState extends State<LoginPage> {
 
                                                   if (!mounted) return;
 
-                                                  Navigator.push(
+                                                  Navigator.pushNamed(
                                                     context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            DashboardPage()),
+                                                    '/dashboard/',
                                                   );
                                                 }
 
@@ -762,9 +741,10 @@ class _LoginPageState extends State<LoginPage> {
                                                 // context.read<GoogleUserCubit>().emit(user);
                                                 if (!mounted) return;
 
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(builder: (context) => DashboardPage()));// Call the callback function to perform navigation
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  '/dashboard/',
+                                                );
                                               } else {
                                                 // Sign-in failed
                                                 // Handle sign-in failure if needed
@@ -835,12 +815,9 @@ class _LoginPageState extends State<LoginPage> {
                                         TextButton(
                                           onPressed: (){
 
-                                            Navigator.push(
+                                            Navigator.pushNamed(
                                               context,
-                                              PageRouteBuilder(
-                                                transitionDuration: Duration.zero, // Set the transition duration to zero
-                                                pageBuilder: (context, animation, secondaryAnimation) => RegisterPage(),
-                                              ),
+                                              '/auth/register/',
                                             );
 
 

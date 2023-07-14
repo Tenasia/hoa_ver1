@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:home_owners_application_version_one/api/google_auth_api.dart';
+import 'package:home_owners_application_version_one/api/auth/google_auth_api.dart';
 import 'package:home_owners_application_version_one/components/common_components.dart';
 
 import '../constants.dart';
 import '../models/models.dart';
-import '../api/logout_api.dart';
+import '../api/auth/logout_api.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -50,11 +50,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   Navigator.pop(context);
                 },
             ),
-
-            // Text(
-            //   'Google Email: ${googleUserAccount?.email} ${googleUserAccount?.displayName} ${googleUserAccount?.id} ${googleUserAccount?.photoUrl}',
-            //   style: TextStyle(fontSize: 16),
-            // ),
           ],
         ),
       ),

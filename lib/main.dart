@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:home_owners_application_version_one/models/users_cubit.dart';
-import 'package:home_owners_application_version_one/models/users_model.dart';
+import 'package:home_owners_application_version_one/models/cubit/users_cubit.dart';
+import 'package:home_owners_application_version_one/models/model/users_model.dart';
 import 'routes.dart';
 
 void main() async {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:home_owners_application_version_one/components/common_textform_outlined.dart';
 import 'package:home_owners_application_version_one/design_components/bezier_curve.dart';
-import 'package:home_owners_application_version_one/api/register_api.dart';
+import 'package:home_owners_application_version_one/api/auth/register_api.dart';
 
-import '../models/users_model.dart';
+import '../models/model/users_model.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
